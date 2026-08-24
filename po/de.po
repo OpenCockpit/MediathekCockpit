@@ -278,23 +278,5 @@ msgstr "Lizenz"
 msgid "End"
 msgstr "Ende"
 
-msgid "File Task"
-msgstr "Datei-Operation"
-
-msgid "None"
-msgstr "Nichts"
-
-msgid "Loading"
-msgstr "Lade"
-
-msgid "Deleting"
-msgstr "Löschen"
-
-msgid "Moving"
-msgstr "Verschieben"
-
-msgid "Copying"
-msgstr "Kopieren"
-
-msgid "FSTrim"
-msgstr "FSTrimmen"
+msgid "Do you want to resume playback at position: %d:%02d:%02d?"
+msgstr "Soll Playback an Position %d:%02d:%02d fortgesetzt werden?"

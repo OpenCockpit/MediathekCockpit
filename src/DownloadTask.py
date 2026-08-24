@@ -14,7 +14,6 @@ from .WebRequests import WebRequests
 from .Debug import logger
 from .ParserMetaFile import ParserMetaFile
 from .FileUtils import writeFile, deleteFiles, touchFile
-from .FileManagerUtils import FILE_OP_DELETE
 try:
     from Plugins.SystemPlugins.CacheCockpit.FileManager import FileManager
 except Exception:
@@ -41,16 +40,12 @@ def loadDatabaseFile(target_path, event_name, short_description, description, re
 
 
 def deleteFile(target_path):
+    # A permanent, direct delete - these are disposable playback cache files,
+    # not user recordings, so MovieCockpit's shared trashcan/bookmark/job-queue
+    # machinery (which FileManager.execFileOp(FILE_OP_DELETE, ...) goes through)
+    # doesn't apply here and unnecessarily depends on MovieCockpit being installed.
     logger.info("target_path: %s", target_path)
-    if FileManager:
-        FileManager.getInstance("MVC").execFileOp(
-            FILE_OP_DELETE,
-            target_path,
-            None,
-            None
-        )
-    else:
-        deleteFiles(os.path.splitext(target_path)[0] + ".*")
+    deleteFiles(os.path.splitext(target_path)[0] + ".*")
 
 
 def downloadCover(url, path):

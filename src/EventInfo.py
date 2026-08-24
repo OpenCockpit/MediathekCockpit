@@ -33,10 +33,12 @@ class EventInfo(Screen):
         self["key_green"] = Button()
         self["key_yellow"] = Button()
         self["key_blue"] = Button()
-        epg_description = curr[LIST_EVENT_NAME]
+        epg_description = ""  # curr[LIST_EVENT_NAME]
         if curr[LIST_SHORT_DESCRIPTION]:
-            epg_description += "\n\n" + curr[LIST_SHORT_DESCRIPTION]
-        epg_description += "\n\n" + curr[LIST_DESCRIPTION]
+            epg_description += curr[LIST_SHORT_DESCRIPTION]
+        if epg_description and curr[LIST_DESCRIPTION]:
+            epg_description += "\n\n"
+        epg_description += curr[LIST_DESCRIPTION]
         self["epg_description"] = ScrollLabel(epg_description)
         self["datetime"] = Label(curr[LIST_DATE] + " " + curr[LIST_TIME])
         self["duration"] = Label(

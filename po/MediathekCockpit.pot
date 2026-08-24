@@ -278,23 +278,5 @@ msgstr ""
 msgid "End"
 msgstr ""
 
-msgid "File Task"
-msgstr ""
-
-msgid "None"
-msgstr ""
-
-msgid "Loading"
-msgstr ""
-
-msgid "Deleting"
-msgstr ""
-
-msgid "Moving"
-msgstr ""
-
-msgid "Copying"
-msgstr ""
-
-msgid "FSTrim"
+msgid "Do you want to resume playback at position: %d:%02d:%02d?"
 msgstr ""
