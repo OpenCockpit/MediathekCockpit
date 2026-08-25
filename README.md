@@ -20,4 +20,4 @@ This repository has no control over the streams, links, or the legality of the c
 - Tested on OpenViX and OpenATV with DM900.
 
 ## Links
-- Installation: https://xcentaurix.github.io/MediathekCockpit
+- Installation: https://OpenCockpit.github.io/MediathekCockpit
