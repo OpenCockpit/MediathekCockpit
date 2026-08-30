@@ -1,0 +1,14 @@
+- widget:
+    font: "$FR_medium"
+    name: "duration"
+    position: "0,0"
+    size: "640,30"
+    transparent: "1"
+    zPosition: "1"
+- widget:
+    font: "$FR_small"
+    name: "description"
+    position: "0,41"
+    size: "640,899"
+    transparent: "1"
+    zPosition: "1"
