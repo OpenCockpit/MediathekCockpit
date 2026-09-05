@@ -1,14 +1,12 @@
 screen:
-  backgroundColor: "transparent"
-  flags: "wfNoBorder"
   name: "ScreenPVRState"
+  backgroundColor: "transparent"
   position: "center,center"
-  resolution: "1920,1080"
   size: "100,160"
   zPosition: "1000"
   children:
     - xmlinc:
-        file: "screenpart_fonts.noymlinc"
+        file: "screenpart_fonts.ymlinc"
     - widget:
         alphatest: "blend"
         name: "state_pic"

@@ -3,6 +3,7 @@
 
 
 from Plugins.Plugin import PluginDescriptor
+from skin import findSkinScreen
 from . import ConfigInit  # noqa: F401, pylint: disable=unused-import
 from .Debug import logger
 from .Version import VERSION
@@ -12,7 +13,8 @@ from . import _
 from .SkinUtils import loadPluginSkin
 
 
-loadPluginSkin()
+if findSkinScreen("MediathekCockpit") is None:
+    loadPluginSkin()
 
 
 def main(session, query="", **__kwargs):
@@ -47,7 +49,8 @@ def Plugins(**__kwargs):
                 PluginDescriptor.WHERE_AUTOSTART,
                 PluginDescriptor.WHERE_SESSIONSTART
             ],
-            fnc=autoStart
+            fnc=autoStart,
+            needsRestart=True
         ),
         PluginDescriptor(
             name="MediathekCockpit",
@@ -57,7 +60,8 @@ def Plugins(**__kwargs):
             ],
             icon="MediathekCockpit.png",
             description=_("Browse Mediathek libraries"),
-            fnc=main
+            fnc=main,
+            needsRestart=True
         ),
         PluginDescriptor(
             name=_("Mediathek Downloads"),
@@ -65,12 +69,18 @@ def Plugins(**__kwargs):
             where=[
                 PluginDescriptor.WHERE_EVENTINFO
             ],
-            fnc=showDownloads
+            fnc=showDownloads,
+            needsRestart=True
         ),
         PluginDescriptor(
             name=_("MediathekCockpit"),
             description=_("Mediathek Downloads"),
             where=WHERE_MEDIATHEK_SEARCH,
-            fnc=main
+            fnc=main,
+            needsRestart=True
+        ),
+        PluginDescriptor(
+            where=PluginDescriptor.WHERE_SKINCHANGE,
+            fnc=loadPluginSkin
         ),
     ]
