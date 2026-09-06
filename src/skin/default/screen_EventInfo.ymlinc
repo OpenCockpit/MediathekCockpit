@@ -1,6 +1,4 @@
 screen:
-  backgroundColor: "panelBG"
-  flags: "wfNoBorder"
   name: "EventInfo"
   position: "center,center"
   size: "1280,720"
@@ -36,7 +34,4 @@ screen:
         size: "e-20,35"
         transparent: "1"
     - xmlinc:
-        file: "screenpart_BottomBar.ymlinc"
-    - xmlinc:
-        file: "screenpart_ButtonBar.ymlinc"
-        position: "0,$screen_height-48"
+        file: "screenpart_Footer.ymlinc"

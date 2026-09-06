@@ -1,9 +1,6 @@
 screen:
-  backgroundColor: "panelBG"
-  flags: "wfNoBorder"
   name: "MediathekCockpit"
   position: "center,center"
-  resolution: "1920,1080"
   size: "1920,1080"
   title: "MediathekCockpit"
   children:
@@ -16,7 +13,4 @@ screen:
         file: "screenpart_MediathekCockpitDescription.ymlinc"
         position: "1260,80"
     - xmlinc:
-        file: "screenpart_BottomBar.ymlinc"
-    - xmlinc:
-        file: "screenpart_ButtonBar.ymlinc"
-        position: "0,$screen_height-48"
+        file: "screenpart_Footer.ymlinc"

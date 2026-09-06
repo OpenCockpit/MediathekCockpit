@@ -1,6 +1,4 @@
 screen:
-  backgroundColor: "panelBG"
-  flags: "wfNoBorder"
   name: "MovieInfo"
   position: "center,center"
   size: "1280,720"
@@ -24,15 +22,14 @@ screen:
                   - "Regular;24"
                 fields:
                   - text:
-                      rect: [5, 0, 320, 62]
+                      position: "5,0"
+                      size: "320,62"
                       flags: RT_VALIGN_CENTER
                       value: 0
                   - text:
-                      rect: [335, 0, 920, 62]
+                      position: "335,0"
+                      size: "920,62"
                       flags: RT_VALIGN_CENTER|RT_WRAP
                       value: 1
     - xmlinc:
-        file: "screenpart_BottomBar.ymlinc"
-    - xmlinc:
-        file: "screenpart_ButtonBar.ymlinc"
-        position: "0,$screen_height-48"
+        file: "screenpart_Footer.ymlinc"
