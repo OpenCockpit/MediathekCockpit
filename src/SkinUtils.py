@@ -20,4 +20,4 @@ def loadPluginSkin(screen_name=None, file_name="skin.xml", session=None):  # pyl
         return
     skin_file = str(Path(__file__).parent / "skin" / "default" / file_name)
     loadSkin(skin_file, scope=SCOPE_SKIN)
-    patchScreenApplySkin()
+    # patchScreenApplySkin()

@@ -9,6 +9,8 @@ screen:
         enableWrapAround: "1"
         position: "10,65"
         render: "Listbox"
+        scrollbarBackgroundColor: "backgroundMedium"
+        scrollbarBorderColor: "backgroundLight"
         scrollbarMode: "showOnDemand"
         size: "e-20,590"
         source: "list"

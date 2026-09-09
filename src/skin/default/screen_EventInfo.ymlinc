@@ -9,6 +9,8 @@ screen:
         font: "$FR_medium"
         name: "epg_description"
         position: "10,65"
+        scrollbarBackgroundColor: "backgroundMedium"
+        scrollbarBorderColor: "backgroundLight"
         scrollbarMode: "showOnDemand"
         size: "e-20,e-190"
         transparent: "1"
