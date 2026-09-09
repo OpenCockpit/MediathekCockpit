@@ -56,7 +56,7 @@ def Plugins(**__kwargs):
                 PluginDescriptor.WHERE_PLUGINMENU,
                 PluginDescriptor.WHERE_EXTENSIONSMENU
             ],
-            icon="MediathekCockpit.png",
+            icon="plugin.svg",
             description=_("Browse Mediathek libraries"),
             fnc=main,
             needsRestart=True
