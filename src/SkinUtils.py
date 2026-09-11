@@ -3,8 +3,8 @@
 
 
 from pathlib import Path
-from Components.SystemInfo import BoxInfo
 from Tools.Directories import SCOPE_SKIN
+from Components.SystemInfo import BoxInfo
 from skin import loadSkin, findSkinScreen
 from .ScreenSummaryFix import patchScreenApplySkin
 # from .Debug import logger
