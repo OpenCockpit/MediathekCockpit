@@ -9,6 +9,6 @@
     font: "$FR_small"
     name: "description"
     position: "0,45"
-    size: "640,900"
+    size: "640,865"
     transparent: "1"
     zPosition: "1"
