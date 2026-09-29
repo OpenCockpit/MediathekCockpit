@@ -1,9 +1,7 @@
 widget:
-  backgroundColorSelected: "blue"
+  backgroundColorSelected: "$backgroundColorSelected"
   position: "0,0"
   render: "Listbox"
-  scrollbarBackgroundColor: "backgroundMedium"
-  scrollbarBorderColor: "backgroundLight"
   scrollbarMode: "showOnDemand"
   size: "1200,910"
   source: "list"
