@@ -12,14 +12,14 @@ widget:
         cell:
           itemHeight: 70
           fonts:
-            - "Regular;30"
+            - "$FR_medium"
+            - "$FR_verysmall"
             - "Regular;26"
-            - "Regular;20"
           fields:
             - text:
                 position: "75,0"
                 size: "170,34"
-                font: "Regular;30"
+                font: "$FR_medium"
                 flags: RT_HALIGN_LEFT|RT_VALIGN_CENTER
                 value: 0
             - icon:
@@ -30,19 +30,19 @@ widget:
             - text:
                 position: "75,35"
                 size: "110,30"
-                font: "Regular;20"
+                font: "$FR_verysmall"
                 flags: RT_HALIGN_LEFT|RT_VALIGN_CENTER
                 value: 5
             - text:
                 position: "200,35"
                 size: "70,30"
-                font: "Regular;20"
+                font: "$FR_verysmall"
                 flags: RT_HALIGN_LEFT|RT_VALIGN_CENTER
                 value: 4
             - text:
                 position: "300,0"
                 size: "890,36"
-                font: "Regular;30"
+                font: "$FR_medium"
                 flags: RT_HALIGN_LEFT|RT_VALIGN_CENTER
                 value: 15
             - raw:
