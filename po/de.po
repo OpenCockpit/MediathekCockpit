@@ -14,269 +14,315 @@ msgstr ""
 "X-Poedit-Basepath: ../src\n"
 "X-Poedit-SearchPath-0: .\n"
 
+#: ChannelSelection.py:37 ChannelSelection.py:53
 msgid "All channels"
 msgstr "Alle Kanäle"
 
+#: ChannelSelection.py:43 ChannelSelection.py:45
 msgid "Channel selection"
 msgstr "Kanalauswahl"
 
+#: CockpitPlayer.py:85
 msgid "Infobar/Play"
 msgstr "Infobar/Play"
 
+#: CockpitPlayer.py:86
 msgid "Play/Pause"
 msgstr "Play/Pause"
 
+#: CockpitPlayer.py:87 CockpitPlayer.py:88 CockpitPlayer.py:89
 msgid "Stop playback"
 msgstr "Stopp"
 
+#: CockpitPlayer.py:90
 msgid "Skip forward"
 msgstr "Springe vorwärts"
 
+#: CockpitPlayer.py:91
 msgid "Skip backward"
 msgstr "Springe zurück"
 
+#: CockpitPlayer.py:92
 msgid "EPG Info"
 msgstr "EPG Info"
 
+#: CockpitPlayer.py:136
 msgid "Do you want to resume playback at position: "
 msgstr "Playback fortsetzen an Position:"
 
+#: ConfigInit.py:30 ConfigInit.py:67
 msgid "High"
 msgstr "Hoch"
 
+#: ConfigInit.py:30 ConfigInit.py:67
 msgid "Medium"
 msgstr "Mittel"
 
+#: ConfigInit.py:30 ConfigInit.py:67
 msgid "Low"
 msgstr "Niedrig"
 
+#: ConfigInit.py:33
 msgid "DD.MM.YYYY"
 msgstr ""
 
+#: ConfigInit.py:34
 msgid "WD DD.MM.YYYY"
 msgstr ""
 
+#: ConfigInit.py:36
 msgid "DD.MM.YYYY HH:MM"
 msgstr ""
 
+#: ConfigInit.py:37
 msgid "WD DD.MM.YYYY HH:MM"
 msgstr ""
 
+#: ConfigInit.py:39
 msgid "DD.MM. HH:MM"
 msgstr ""
 
+#: ConfigInit.py:40
 msgid "WD DD.MM. HH:MM"
 msgstr ""
 
+#: ConfigInit.py:42
 msgid "YYYY/MM/DD"
 msgstr ""
 
+#: ConfigInit.py:43
 msgid "WD YYYY/MM/DD"
 msgstr ""
 
+#: ConfigInit.py:45
 msgid "YYYY/MM/DD HH:MM"
 msgstr ""
 
+#: ConfigInit.py:46
 msgid "WD YYYY/MM/DD HH:MM"
 msgstr ""
 
+#: ConfigInit.py:48
 msgid "MM/DD HH:MM"
 msgstr ""
 
+#: ConfigInit.py:49
 msgid "WD MM/DD HH:MM"
 msgstr ""
 
+#: ConfigInit.py:65
 msgid "Do nothing"
 msgstr "Nichts tun"
 
+#: ConfigInit.py:65
 msgid "Ask user"
 msgstr "Benutzer fragen"
 
+#: ConfigInit.py:83
 msgid "beginning"
 msgstr "Anfang"
 
+#: ConfigInit.py:83
 msgid "first mark"
 msgstr "Erste Sprungmarke"
 
+#: ConfigInit.py:83
 msgid "event start"
 msgstr "Sendungsanfang"
 
+#: ConfigScreenInit.py:32
 msgid "COCKPIT"
 msgstr "COCKPIT"
 
+#: ConfigScreenInit.py:33
 msgid "Entries in list"
 msgstr "Einträge"
 
+#: ConfigScreenInit.py:33
 msgid "Select the number of movies by download."
 msgstr "Anzahl der Filme, die pro \"Seite\" heruntergeladen werden"
 
+#: ConfigScreenInit.py:34
 msgid "Show future movies"
 msgstr "Zeige zukünftige Filme"
 
+#: ConfigScreenInit.py:34
 msgid "Include future movies in list"
 msgstr "Zukünftige Filme bei der Suche einbeziehen"
 
+#: ConfigScreenInit.py:35
 msgid "Movie resolution"
 msgstr "Filmauflösung"
 
+#: ConfigScreenInit.py:35
 msgid "Select the resolution for movie download."
 msgstr "Film-Auflösung für Download festlegen"
 
+#: ConfigScreenInit.py:36
 msgid "Download directory"
 msgstr "Download Verzeichnis"
 
+#: ConfigScreenInit.py:36
 msgid "Select the directory the downloads are stored in."
 msgstr "Film-Verzeichnis für Download festlegen"
 
+#: ConfigScreenInit.py:37
 msgid "FILTER"
 msgstr "FILTER"
 
+#: ConfigScreenInit.py:38
 msgid "Skip 'Audio description'"
 msgstr "Überspringe 'Audiodeskription'"
 
+#: ConfigScreenInit.py:38
 msgid "Skip movies with titles that contain 'Audio description'"
 msgstr "Überspringe Filme, die mit 'Audiodeskription' gekennzeichnet sind."
 
+#: ConfigScreenInit.py:39
 msgid "Skip 'Trailer'"
 msgstr "Überspringe 'Trailer'"
 
+#: ConfigScreenInit.py:39
 msgid "Skip movies with titles that contain 'Trailer'"
 msgstr "Überspringe Filme, die mit 'Trailer' gekennzeichnet sind."
 
+#: ConfigScreenInit.py:40
 msgid "Skip 'Sign language'"
 msgstr "Überspringe 'Gebärdensprache'"
 
+#: ConfigScreenInit.py:40
 msgid "Skip movies with titles that contain 'Sign language'"
 msgstr "Überspringe Filme, die mit 'Gebärdensprache' gekennzeichnet sind."
 
+#: ConfigScreenInit.py:41
 msgid "Skip short duration"
 msgstr "Überspringe kurze Filme"
 
+#: ConfigScreenInit.py:41
 msgid "Skip movies with duration shorter than value specified in settings."
 msgstr "Überspringe Filme mit kürzerer Länge als angegeben."
 
+#: ConfigScreenInit.py:42
 msgid "DEBUG"
 msgstr "DEBUG"
 
+#: ConfigScreenInit.py:43
 msgid "Log level"
 msgstr "Debug Log-Stufe"
 
+#: ConfigScreenInit.py:43
 msgid "Select the debug log level."
 msgstr "Auswahl der Debug Log-Stufe"
 
+#: EventView.py:46 MovieInfo.py:60
 msgid "Cancel"
 msgstr "Abbrechen"
 
+#: EventView.py:57
 msgid "min"
 msgstr "Min"
 
+#: MediathekCockpit.py:62
 msgid "Movies"
 msgstr "Filme"
 
+#: MediathekCockpit.py:62
 msgid "Search results"
 msgstr "Suchergebnisse"
 
+#: MediathekCockpit.py:63
 msgid "Downloading movies..."
 msgstr "Laden der Filme..."
 
+#: MediathekCockpit.py:65 MovieInfo.py:49 MovieInfo.py:50 MovieInfo.py:51
+#: MovieInfo.py:52 MovieInfo.py:59
 msgid "Exit"
 msgstr "Verlassen"
 
+#: MediathekCockpit.py:66
 msgid "Channels"
 msgstr "Kanäle"
 
+#: MediathekCockpit.py:67
 msgid "Download"
 msgstr "Download"
 
+#: MediathekCockpit.py:68
 msgid "Search"
 msgstr "Suche"
 
+#: MediathekCockpit.py:113 MovieList.py:104
 msgid "No movies available"
 msgstr "Keine Filme verfügbar"
 
+#: MediathekCockpit.py:115 MovieList.py:102
 msgid "Page"
 msgstr "Seite"
 
+#: MediathekCockpit.py:126
 msgid "Duration"
 msgstr "Dauer"
 
+#: MediathekCockpit.py:126
 msgid "Minutes"
 msgstr "Minuten"
 
+#: MediathekCockpit.py:136
 msgid "No valid stream detected."
 msgstr "Kein Stream Playback möglich."
 
+#: MediathekCockpit.py:147
 msgid "Unsupported video format or no valid stream detected."
 msgstr "Unbekanntes Stream Format"
 
+#: MediathekCockpit.py:172
 msgid "Download added"
 msgstr "Download hinzugefügt"
 
+#: MediathekCockpit.py:181
 msgid "Download failed"
 msgstr "Download fehlgeschlagen"
 
+#: MediathekCockpit.py:182
 msgid "Please check movie directory in plugin settings."
 msgstr "Bitte Filmverzeichnis in den Einstellungen überprüfen."
 
+#: Menu.py:34
 msgid "Download Manager"
 msgstr "Download Manager"
 
+#: Menu.py:35
 msgid "Settings"
 msgstr "Einstellungen"
 
+#: Menu.py:36
 msgid "About"
 msgstr "Über"
 
+#: Menu.py:43
 msgid "Functions"
 msgstr "Funktionen"
 
+#: Menu.py:45
 msgid "Menu"
 msgstr "Menü"
 
+#: MovieInfo.py:57
 msgid "Movie Info"
 msgstr "Filminformationen"
 
+#: Search.py:40
 msgid "Enter search text"
 msgstr "Eingabe des Suchtexts"
 
+#: plugin.py:71
 msgid "Browse Mediathek libraries"
 msgstr "Mediatheken durchsuchen, Filme abspielen und herunterladen"
 
+#: plugin.py:75 plugin.py:76 plugin.py:86
 msgid "Mediathek Downloads"
 msgstr "Mediathek Downloads"
 
+#: plugin.py:85
 msgid "MediathekCockpit"
 msgstr "MediathekCockpit"
-
-msgid "Movie date format"
-msgstr ""
-
-msgid "Movie start position"
-msgstr ""
-
-msgid "Resume at last position"
-msgstr ""
-
-msgid "Setup"
-msgstr ""
-
-msgid "Stop movie behaviour"
-msgstr ""
-
-msgid "Plugin"
-msgstr "Plugin"
-
-msgid "Version"
-msgstr "Version"
-
-msgid "Copyright"
-msgstr "Copyright"
-
-msgid "License"
-msgstr "Lizenz"
-
-msgid "End"
-msgstr "Ende"
-
-msgid "Do you want to resume playback at position: %d:%02d:%02d?"
-msgstr "Soll Playback an Position %d:%02d:%02d fortgesetzt werden?"
