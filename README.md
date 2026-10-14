@@ -21,3 +21,4 @@ This repository has no control over the streams, links, or the legality of the c
 
 ## Links
 - Installation: https://OpenCockpit.github.io/MediathekCockpit
+- User Guide: https://github.com/OpenCockpit/MediathekCockpit/wiki
