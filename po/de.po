@@ -248,6 +248,18 @@ msgstr "Mediathek Downloads"
 msgid "MediathekCockpit"
 msgstr "MediathekCockpit"
 
+msgid "Action"
+msgstr "Aktion"
+
+msgid "Quit"
+msgstr "Beenden"
+
+msgid "Restart from the beginning"
+msgstr "Von vorne beginnen"
+
+msgid "Continue playing"
+msgstr "Weiter abspielen"
+
 msgid "Movie date format"
 msgstr "Film-Datums-Format"
 

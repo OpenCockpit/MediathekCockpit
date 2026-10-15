@@ -45,6 +45,11 @@ def deleteFile(target_path):
     # doesn't apply here and unnecessarily depends on MovieCockpit being installed.
     logger.info("target_path: %s", target_path)
     deleteFiles(os.path.splitext(target_path)[0] + ".*")
+    if FileManager:
+        # the file may have been added to MovieCockpit's cache while it was still being written
+        file_manager = FileManager.getInstance("MVC")
+        file_manager.delete("table1", target_path)
+        file_manager.delete("table2", os.path.basename(target_path))
 
 
 def downloadCover(url, path):
@@ -94,6 +99,7 @@ class DownloadTaskFile(Task):
         self._aborted = True
         if self.web_client:
             self.web_client.cancel()
+        deleteFile(self.target_path)
         Task.processFinished(self, 1)
 
     def run(self, callback):
@@ -188,6 +194,7 @@ class DownloadTaskHLS(Task):
             self.web_client.cancel()
         if self.file_handle and not self.file_handle.closed:
             self.file_handle.close()
+        deleteFile(self.target_path)
         Task.processFinished(self, 1)
 
     def run(self, callback):

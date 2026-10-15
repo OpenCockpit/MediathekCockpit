@@ -5,6 +5,8 @@
 import json
 from Screens.ChoiceBox import ChoiceBox
 from .WebRequests import WebRequests
+from .FileUtils import readFile
+from .Constants import plugindir
 from .Debug import logger
 from .__init__ import _
 
@@ -13,11 +15,25 @@ class ChannelSelection():
     def __init__(self):
         return
 
+    def getChannelList(self):
+        """The broadcasters from the service; the list delivered with the plugin if the service doesn't answer."""
+        url = "https://mediathekviewweb.de/api/channels"
+        channel_list = []
+        try:
+            channel_list = json.loads(WebRequests().getContent(url)).get("channels", [])
+        except Exception as e:
+            logger.error("channel list request failed: %s", e)
+        if not channel_list:
+            logger.info("using the channel list of the plugin")
+            try:
+                channel_list = json.loads(readFile(plugindir + "channels/mtc_channels.json")).get("channels", [])
+            except Exception as e:
+                logger.error("channel list of the plugin unreadable: %s", e)
+        return channel_list
+
     def openChannelSelection(self):
         logger.info("...")
-        url = "https://mediathekviewweb.de/api/channels"
-        channel_list = json.loads(
-            WebRequests().getContent(url)).get("channels", [])
+        channel_list = self.getChannelList()
         choices = [(_("All channels"),)]
         for channel in channel_list:
             choices.append((str(channel),))

@@ -24,7 +24,7 @@ from .MovieInfo import MovieInfo
 from .ServiceUtils import getService
 from .MovieFile import MovieFile
 from .MovieList import MovieList
-from .CockpitPlayer import CockpitPlayer
+from .MediathekPlayer import MediathekPlayer
 from .ServiceCenter import ServiceCenter
 from .JobUtils import getPendingJobs
 from .DownloadTask import deleteFile
@@ -124,7 +124,7 @@ class MediathekCockpit(Screen, Menu, ChannelSelection, Search):
         if uri:
             logger.debug("Playing movie from URI: %s", uri)
             service = getService(uri, curr[LIST_EVENT_NAME])
-            self.session.openWithCallback(boundFunction(self.playMovieCallback, path), CockpitPlayer, service,
+            self.session.openWithCallback(boundFunction(self.playMovieCallback, path), MediathekPlayer, service,
                                           config.plugins.mediathekcockpit, self.pressInfo, service_center=self.service_center, stream=stream)
         else:
             self.session.open(MessageBox, _("Unsupported video format or no valid stream detected."), type=MessageBox.TYPE_ERROR, timeout=4)
