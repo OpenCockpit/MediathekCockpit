@@ -19,6 +19,8 @@ This repository has no control over the streams, links, or the legality of the c
 ## Limitations
 - Tested on OpenViX and OpenATV with DM900.
 
-## Links
-- Installation: https://OpenCockpit.github.io/MediathekCockpit
-- User Guide: https://github.com/OpenCockpit/MediathekCockpit/wiki
+## Installation
+- https://OpenCockpit.github.io/MediathekCockpit
+
+## Wiki
+- https://github.com/OpenCockpit/MediathekCockpit/wiki
