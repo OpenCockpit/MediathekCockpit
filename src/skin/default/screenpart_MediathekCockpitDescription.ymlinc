@@ -1,12 +1,12 @@
 - widget:
-    font: "$FR_medium"
+    font: "$list_font"
     name: "duration"
     position: "0,0"
     size: "640,35"
     transparent: "1"
     zPosition: "1"
 - widget:
-    font: "$FR_small"
+    font: "$label_font"
     name: "description"
     position: "0,45"
     size: "640,865"
