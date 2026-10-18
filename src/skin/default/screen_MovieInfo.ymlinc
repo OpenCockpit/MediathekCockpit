@@ -1,7 +1,7 @@
 screen:
   name: "MovieInfo"
   position: "center,center"
-  size: "1280,720"
+  size: "1416,858"
   children:
     - xmlinc:
         file: "screenpart_TitleBar.ymlinc"
@@ -13,7 +13,7 @@ screen:
         position: "10,65"
         render: "Listbox"
         scrollbarMode: "showOnDemand"
-        size: "e-20,590"
+        size: "e-20,e-130"
         source: "list"
         transparent: "1"
         children:
@@ -31,7 +31,7 @@ screen:
                       value: 0
                   - text:
                       position: "335,0"
-                      size: "920,62"
+                      size: "1040,62"
                       flags: RT_VALIGN_CENTER|RT_WRAP
                       value: 1
     - xmlinc:

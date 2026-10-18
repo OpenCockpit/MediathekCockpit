@@ -1,7 +1,7 @@
 screen:
   name: "EventInfo"
   position: "center,center"
-  size: "1280,720"
+  size: "1416,858"
   children:
     - xmlinc:
         file: "screenpart_TitleBar.ymlinc"
