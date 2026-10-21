@@ -63,7 +63,7 @@
 			<convert type="ClockToText">Default</convert>
 		</widget>
 		<widget actionButtonsPos="farRight" addon="ScreenButtonsBar" backgroundColor="md_surface_container_high" connection="key_red,key_green,key_yellow,key_blue,key_play,key_previous,key_left,key_info,key_help,key_pvr,key_menu,key_text,VKeyIcon,key_next,key_right,key_0" font="Regular;26" layoutStyle="fluid" pixmaps="key_red:/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/buttons/key_red.png,key_green:/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/buttons/key_green.png,key_yellow:/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/buttons/key_yellow.png,key_blue:/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/buttons/key_blue.png,key_play:/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/buttons/key_play.png,key_info:/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/buttons/key_info.png,key_help:/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/buttons/key_help.png,key_pvr:/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/buttons/key_pvr.png,key_menu:/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/buttons/key_menu.png,key_text:/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/buttons/key_text.png,VKeyIcon:/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/buttons/key_text.png,key_previous:/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/buttons/key_prev.png,key_next:/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/buttons/key_next.png,key_left:/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/buttons/key_left.png,key_right:/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/buttons/key_right.png,key_0:/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/buttons/key_0.png" position="24,1024" size="1872,36" spacingActionColorGroups="60" spacingColor="120" spacingPixmapText="10" zPosition="10"/>
-		<widget backgroundColorSelected="md_surface_container_high" foregroundColorSelected="md_primary" itemCornerRadiusSelected="6" position="24,84" render="Listbox" scrollbarMode="showOnDemand" size="1200,910" source="list" transparent="1">
+		<widget backgroundColor="md_surface" backgroundColorSelected="md_surface_container_high" enableWrapAround="1" foregroundColor="md_on_surface" foregroundColorSelected="md_primary" itemCornerRadiusSelected="6" position="24,84" render="Listbox" scrollbarMode="showOnDemand" scrollbarSliderBorderColor="md_on_surface" scrollbarSliderBorderWidth="1" scrollbarSliderForegroundColor="md_on_surface_variant" scrollbarWidth="3" selectionFrame="none" size="1200,910" source="list" transparent="1">
 			<convert type="COCTemplatedMultiContentEx">
 			{
 				"template": [
@@ -79,7 +79,7 @@
 			}
 			</convert>
 		</widget>
-		<widget font="Regular;30" name="duration" position="1264,84" size="640,35" transparent="1" zPosition="1"/>
+		<widget font="Regular;30" name="duration" position="1264,84" size="640,38" transparent="1" zPosition="1"/>
 		<widget font="Regular;26" name="description" position="1264,129" size="640,865" transparent="1" zPosition="1"/>
 	</screen>
 	<screen backgroundColor="md_transparent" flags="wfNoBorder" name="MovieInfo" position="fill" resolution="1920,1080">
@@ -91,7 +91,7 @@
 		</widget>
 		<eLabel backgroundColor="md_surface_container_high" position="272,114" size="1156,60" zPosition="19"/>
 		<widget addon="ScreenHeader" backgroundColor="md_surface_container_high" connection="Image,Title,ScreenPath" pathFont="Bold;18" pathForegroundColor="md_primary" position="272,113" size="1156,60" titleFont="Bold;28" titleForegroundColor="md_primary" titleSingleFont="Bold;42" transparent="1" zPosition="20"/>
-		<widget backgroundColorSelected="md_surface_container_high" enableWrapAround="1" foregroundColorSelected="md_primary" itemCornerRadiusSelected="6" position="266,183" render="Listbox" scrollbarMode="showOnDemand" size="1388,650" source="list" transparent="1">
+		<widget backgroundColor="md_surface" backgroundColorSelected="md_surface_container_high" enableWrapAround="1" foregroundColor="md_on_surface" foregroundColorSelected="md_primary" itemCornerRadiusSelected="6" position="266,183" render="Listbox" scrollbarMode="showOnDemand" scrollbarSliderBorderColor="md_on_surface" scrollbarSliderBorderWidth="1" scrollbarSliderForegroundColor="md_on_surface_variant" scrollbarWidth="3" selectionFrame="none" size="1388,650" source="list" transparent="1">
 			<convert type="COCTemplatedMultiContentEx">
 			{
 				"template": [
@@ -114,9 +114,9 @@
 		<eLabel backgroundColor="md_surface_container_high" position="272,114" size="1156,60" zPosition="19"/>
 		<widget addon="ScreenHeader" backgroundColor="md_surface_container_high" connection="Image,Title,ScreenPath" pathFont="Bold;18" pathForegroundColor="md_primary" position="272,113" size="1156,60" titleFont="Bold;28" titleForegroundColor="md_primary" titleSingleFont="Bold;42" transparent="1" zPosition="20"/>
 		<widget font="Regular;30" name="epg_description" position="266,183" scrollbarMode="showOnDemand" size="1388,630" transparent="1"/>
-		<widget font="Regular;30" halign="left" name="datetime" position="266,836" size="1388,35" transparent="1"/>
-		<widget font="Regular;30" halign="center" name="duration" position="266,836" size="1388,35" transparent="1"/>
-		<widget font="Regular;30" halign="right" name="channel" position="266,836" size="1388,35" transparent="1"/>
+		<widget font="Regular;30" halign="left" name="datetime" position="266,835" size="1388,38" transparent="1"/>
+		<widget font="Regular;30" halign="center" name="duration" position="266,835" size="1388,38" transparent="1"/>
+		<widget font="Regular;30" halign="right" name="channel" position="266,835" size="1388,38" transparent="1"/>
 	</screen>
 	<screen backgroundColor="md_transparent" flags="wfNoBorder" name="CockpitPlayer" position="center,center" resolution="1920,1080" size="1920,1080">
 		<ePixmap alphatest="blend" pixmap="~/../images/player_bg_gradient.png" position="0,860" size="1920,220" zPosition="-1"/>

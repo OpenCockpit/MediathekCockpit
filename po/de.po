@@ -51,40 +51,40 @@ msgid "Low"
 msgstr "Niedrig"
 
 msgid "DD.MM.YYYY"
-msgstr ""
+msgstr "TT.MM.JJJJ"
 
 msgid "WD DD.MM.YYYY"
-msgstr ""
+msgstr "WT TT.MM.JJJJ"
 
 msgid "DD.MM.YYYY HH:MM"
-msgstr ""
+msgstr "TT.MM.JJJJ HH:MM"
 
 msgid "WD DD.MM.YYYY HH:MM"
-msgstr ""
+msgstr "WT TT.MM.JJJJ HH:MM"
 
 msgid "DD.MM. HH:MM"
-msgstr ""
+msgstr "TT.MM. HH:MM"
 
 msgid "WD DD.MM. HH:MM"
-msgstr ""
+msgstr "WT TT.MM. HH:MM"
 
 msgid "YYYY/MM/DD"
-msgstr ""
+msgstr "JJJJ/MM/TT"
 
 msgid "WD YYYY/MM/DD"
-msgstr ""
+msgstr "WT JJJJ/MM/TT"
 
 msgid "YYYY/MM/DD HH:MM"
-msgstr ""
+msgstr "JJJJ/MM/TT HH:MM"
 
 msgid "WD YYYY/MM/DD HH:MM"
-msgstr ""
+msgstr "WT JJJJ/MM/TT HH:MM"
 
 msgid "MM/DD HH:MM"
-msgstr ""
+msgstr "MM/TT HH:MM"
 
 msgid "WD MM/DD HH:MM"
-msgstr ""
+msgstr "WT MM/TT HH:MM"
 
 msgid "Do nothing"
 msgstr "Nichts tun"
@@ -260,6 +260,9 @@ msgstr "Von vorne beginnen"
 msgid "Continue playing"
 msgstr "Weiter abspielen"
 
+msgid "Setup"
+msgstr "Konfiguration"
+
 msgid "Movie date format"
 msgstr "Film-Datums-Format"
 
@@ -268,9 +271,6 @@ msgstr "Film-Start-Position"
 
 msgid "Resume at last position"
 msgstr "Playback an letzter Position starten"
-
-msgid "Setup"
-msgstr "Einstellungen"
 
 msgid "Stop movie behaviour"
 msgstr "Auswahl der Aktion nach dem Stoppen des Films"

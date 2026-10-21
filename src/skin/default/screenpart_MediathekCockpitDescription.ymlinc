@@ -2,7 +2,7 @@
     font: "$md_body_large"
     name: "duration"
     position: "0,0"
-    size: "640,35"
+    size: "640,38"
     transparent: "1"
     zPosition: "1"
 - widget:
