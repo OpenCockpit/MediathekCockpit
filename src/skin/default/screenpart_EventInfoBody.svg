@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1960" height="1148" viewBox="0 0 1960 1148">
+<metadata id="xml2svg-source">{&quot;fragment&quot;: true, &quot;screens&quot;: [{&quot;tag&quot;: &quot;screen&quot;, &quot;attrs&quot;: {&quot;name&quot;: &quot;screenpart_EventInfoBody&quot;, &quot;size&quot;: &quot;1920,1080&quot;}, &quot;children&quot;: [{&quot;tag&quot;: &quot;widget&quot;, &quot;attrs&quot;: {&quot;font&quot;: &quot;Regular;30&quot;, &quot;name&quot;: &quot;epg_description&quot;, &quot;position&quot;: &quot;0,0&quot;, &quot;scrollbarMode&quot;: &quot;showOnDemand&quot;, &quot;size&quot;: &quot;1920,630&quot;, &quot;transparent&quot;: &quot;1&quot;}, &quot;children&quot;: null, &quot;text&quot;: null}, {&quot;tag&quot;: &quot;widget&quot;, &quot;attrs&quot;: {&quot;font&quot;: &quot;Regular;30&quot;, &quot;halign&quot;: &quot;left&quot;, &quot;name&quot;: &quot;datetime&quot;, &quot;position&quot;: &quot;0,1042&quot;, &quot;size&quot;: &quot;1920,38&quot;, &quot;transparent&quot;: &quot;1&quot;}, &quot;children&quot;: null, &quot;text&quot;: null}, {&quot;tag&quot;: &quot;widget&quot;, &quot;attrs&quot;: {&quot;font&quot;: &quot;Regular;30&quot;, &quot;halign&quot;: &quot;center&quot;, &quot;name&quot;: &quot;duration&quot;, &quot;position&quot;: &quot;0,1042&quot;, &quot;size&quot;: &quot;1920,38&quot;, &quot;transparent&quot;: &quot;1&quot;}, &quot;children&quot;: null, &quot;text&quot;: null}, {&quot;tag&quot;: &quot;widget&quot;, &quot;attrs&quot;: {&quot;font&quot;: &quot;Regular;30&quot;, &quot;halign&quot;: &quot;right&quot;, &quot;name&quot;: &quot;channel&quot;, &quot;position&quot;: &quot;0,1042&quot;, &quot;size&quot;: &quot;1920,38&quot;, &quot;transparent&quot;: &quot;1&quot;}, &quot;children&quot;: null, &quot;text&quot;: null}], &quot;text&quot;: null}]}</metadata>
+<rect x="0" y="0" width="1960" height="1148" fill="#f4f4f4"/>
+<text x="20" y="38" font-family="sans-serif" font-size="16" font-weight="bold" fill="#111111">screenpart_EventInfoBody (1920x1080) <tspan font-family="monospace" font-size="12" font-weight="normal" fill="#555555">ids = line in screenpart_EventInfoBody.ymlinc</tspan></text>
+<g data-screen="0" transform="translate(20,48)">
+<rect x="0" y="0" width="1920" height="1080" fill="#ffffff" stroke="#999999" stroke-width="1"/>
+<rect data-ref="0:0" data-src="screenpart_EventInfoBody.ymlinc:1" x="0" y="0" width="1920" height="630" fill="#4e79a7" fill-opacity="0.45" stroke="#000000" stroke-opacity="0.6" stroke-width="1"><title>screenpart_EventInfoBody.ymlinc:1
+&lt;widget&gt; font=&quot;Regular;30&quot; name=&quot;epg_description&quot; position=&quot;0,0&quot; scrollbarMode=&quot;showOnDemand&quot; size=&quot;1920,630&quot; transparent=&quot;1&quot;</title></rect>
+<rect data-ref="0:1" data-src="screenpart_EventInfoBody.ymlinc:8" x="0" y="1042" width="1920" height="38" fill="#f28e2b" fill-opacity="0.45" stroke="#000000" stroke-opacity="0.6" stroke-width="1"><title>screenpart_EventInfoBody.ymlinc:8
+&lt;widget&gt; font=&quot;Regular;30&quot; halign=&quot;left&quot; name=&quot;datetime&quot; position=&quot;0,1042&quot; size=&quot;1920,38&quot; transparent=&quot;1&quot;</title></rect>
+<rect data-ref="0:2" data-src="screenpart_EventInfoBody.ymlinc:15" x="0" y="1042" width="1920" height="38" fill="#e15759" fill-opacity="0.45" stroke="#000000" stroke-opacity="0.6" stroke-width="1"><title>screenpart_EventInfoBody.ymlinc:15
+&lt;widget&gt; font=&quot;Regular;30&quot; halign=&quot;center&quot; name=&quot;duration&quot; position=&quot;0,1042&quot; size=&quot;1920,38&quot; transparent=&quot;1&quot;</title></rect>
+<rect data-ref="0:3" data-src="screenpart_EventInfoBody.ymlinc:22" x="0" y="1042" width="1920" height="38" fill="#76b7b2" fill-opacity="0.45" stroke="#000000" stroke-opacity="0.6" stroke-width="1"><title>screenpart_EventInfoBody.ymlinc:22
+&lt;widget&gt; font=&quot;Regular;30&quot; halign=&quot;right&quot; name=&quot;channel&quot; position=&quot;0,1042&quot; size=&quot;1920,38&quot; transparent=&quot;1&quot;</title></rect>
+<g pointer-events="none" font-family="monospace" font-size="12" fill="#000000" stroke="#ffffff" stroke-width="3" stroke-opacity="0.85" stroke-linejoin="round" paint-order="stroke">
+<text x="4" y="14"><tspan font-weight="bold">#1</tspan> epg_description</text>
+<text x="4" y="1056"><tspan font-weight="bold">#8</tspan> datetime</text>
+<text x="1828" y="1056"><tspan font-weight="bold">#15</tspan> duration</text>
+<text x="0" y="1038"><tspan font-weight="bold">#22</tspan> channel</text>
+</g>
+</g>
+</svg>

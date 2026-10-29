@@ -1,0 +1,28 @@
+- widget:
+    font: "$md_body_large"
+    name: "epg_description"
+    position: "0,0"
+    scrollbarMode: "showOnDemand"
+    size: "$width,630"
+    transparent: "1"
+- widget:
+    font: "$md_body_large"
+    halign: "left"
+    name: "datetime"
+    position: "0,$height-38"
+    size: "$width,38"
+    transparent: "1"
+- widget:
+    font: "$md_body_large"
+    halign: "center"
+    name: "duration"
+    position: "0,$height-38"
+    size: "$width,38"
+    transparent: "1"
+- widget:
+    font: "$md_body_large"
+    halign: "right"
+    name: "channel"
+    position: "0,$height-38"
+    size: "$width,38"
+    transparent: "1"

@@ -1,0 +1,29 @@
+- widget:
+    backgroundColorSelected: "$backgroundColorSelected"
+    enableWrapAround: "1"
+    foregroundColorSelected: "$foregroundColorSelected"
+    itemCornerRadiusSelected: "$radius_item"
+    position: "0,0"
+    render: "Listbox"
+    scrollbarMode: "showOnDemand"
+    size: "$width,eval($height/65*65)"
+    source: "list"
+    transparent: "1"
+    children:
+      - convert:
+          type: "COCTemplatedMultiContentEx"
+          cell:
+            itemHeight: 65
+            fonts:
+              - "$md_body_small"
+            fields:
+              - text:
+                  position: "5,0"
+                  size: "320,62"
+                  flags: RT_VALIGN_CENTER
+                  value: 0
+              - text:
+                  position: "335,0"
+                  size: "1040,62"
+                  flags: RT_VALIGN_CENTER|RT_WRAP
+                  value: 1
