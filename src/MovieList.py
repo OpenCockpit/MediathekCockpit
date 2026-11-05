@@ -3,6 +3,7 @@
 
 
 from Components.Sources.List import List
+from Components.Sources.COCPageSource import COCPageSource
 from .Query import Query
 from .Debug import logger
 from .__init__ import _
@@ -16,6 +17,7 @@ class MovieList(Query):
         self.parent = parent
         Query.__init__(self)
         self.parent["list"] = List()
+        self.parent["pages"] = COCPageSource()  # the page of the title, for the pager under the list
         self.list = []
         self.index = 0
         self.total_results = 0
@@ -99,6 +101,8 @@ class MovieList(Query):
     def updateTitle(self):
         if self.list:
             self.parent.title = self.parent.title_base + " - " + _("Page") + ": " + f"{self.page}/{self.pages}"
+            self.parent["pages"].setPages(self.page, self.pages)
         else:
             self.parent.title = self.parent.title_base + " - " + _("No movies available")
+            self.parent["pages"].setPages(1, 0)
         logger.info("Updated title: %s", self.parent.title)

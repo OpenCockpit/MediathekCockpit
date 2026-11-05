@@ -10,6 +10,7 @@ from Components.ActionMap import ActionMap
 from Components.config import config
 from Components.Label import Label
 from Components.Button import Button
+from Components.Sources.StaticText import StaticText
 from Tools.BoundFunction import boundFunction
 from .Debug import logger
 from .__init__ import _
@@ -50,8 +51,9 @@ class MediathekCockpit(Screen, Menu, ChannelSelection, Search):
         self["key_green"] = Button(_("Channels"))
         self["key_yellow"] = Button(_("Download"))
         self["key_blue"] = Button(_("Search"))
-        self["key_menu"] = Button("Menu")
-        self["key_info"] = Button("Info")
+        # the buttons bar shows an action key only if its source has a true boolean: StaticText with text, not Button
+        self["key_menu"] = StaticText(_("MENU"))
+        self["key_info"] = StaticText(_("INFO"))
 
         self["description"] = Label("")
         self["duration"] = Label("")

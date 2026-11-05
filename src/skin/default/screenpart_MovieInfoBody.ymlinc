@@ -24,6 +24,6 @@
                   value: 0
               - text:
                   position: "335,0"
-                  size: "1040,62"
+                  size: "1346,62"
                   flags: RT_VALIGN_CENTER|RT_WRAP
                   value: 1

@@ -1,11 +1,16 @@
+- eLabel:
+    backgroundColor: "md_outline_variant"
+    position: "$width-640-10,0"
+    size: "1,$height"
+    zPosition: "-5"
 - widget:
     backgroundColorSelected: "$backgroundColorSelected"
     foregroundColorSelected: "$foregroundColorSelected"
     itemCornerRadiusSelected: "$radius_item"
     position: "0,0"
     render: "Listbox"
-    scrollbarMode: "showOnDemand"
-    size: "1200,eval($height/69*69)"
+    scrollbarMode: "showNever"
+    size: "1200,eval(($height-35)/69*69)"
     source: "list"
     transparent: "1"
     children:
@@ -54,12 +59,12 @@
                   flags: RT_HALIGN_LEFT|RT_VALIGN_CENTER
                   value: 16
                   color: "md_on_surface_variant"
-                  color_sel: "md_on_surface_variant"
+                  color_sel: "md_inverse_on_surface"
 - widget:
     font: "$md_body_medium"
     name: "duration"
     position: "$width-640,0"
-    size: "640,32"
+    size: "640,38"
     transparent: "1"
     zPosition: "1"
 - widget:
@@ -69,3 +74,11 @@
     size: "640,$height-45"
     transparent: "1"
     zPosition: "1"
+- widget:
+    addon: "COCPager"
+    backgroundColor: "md_surface"
+    conditional: "pages"
+    connection: "pages"
+    position: "0,$height-25"
+    size: "1200,25"
+    transparent: "1"

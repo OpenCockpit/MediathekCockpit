@@ -3,7 +3,7 @@
     name: "epg_description"
     position: "0,0"
     scrollbarMode: "showOnDemand"
-    size: "$width,630"
+    size: "$width,$height-34"
     transparent: "1"
 - widget:
     font: "$md_body_large"
