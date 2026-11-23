@@ -4,22 +4,22 @@
 <text x="20" y="38" font-family="sans-serif" font-size="16" font-weight="bold" fill="#111111">screenpart_MediathekCockpitBody (1920x1080) <tspan font-family="monospace" font-size="12" font-weight="normal" fill="#555555">ids = line in screenpart_MediathekCockpitBody.ymlinc</tspan></text>
 <g data-screen="0" transform="translate(20,48)">
 <rect x="0" y="0" width="1920" height="1080" fill="#ffffff" stroke="#999999" stroke-width="1"/>
-<rect data-ref="0:0" data-src="screenpart_MediathekCockpitBody.ymlinc:1" x="1270" y="0" width="1" height="1080" fill="#424242" fill-opacity="0.45" stroke="#000000" stroke-opacity="0.6" stroke-width="1"><title>screenpart_MediathekCockpitBody.ymlinc:1
+<rect data-ref="0:0" data-src="screenpart_MediathekCockpitBody.ymlinc:3" x="1270" y="0" width="1" height="1080" fill="#424242" fill-opacity="0.45" stroke="#000000" stroke-opacity="0.6" stroke-width="1"><title>screenpart_MediathekCockpitBody.ymlinc:3
 &lt;eLabel&gt; backgroundColor=&quot;md_outline_variant&quot; position=&quot;1270,0&quot; size=&quot;1,1080&quot; zPosition=&quot;-5&quot;</title></rect>
-<rect data-ref="0:1" data-src="screenpart_MediathekCockpitBody.ymlinc:6" x="0" y="0" width="1200" height="1035" fill="#121212" fill-opacity="0.45" stroke="#000000" stroke-opacity="0.6" stroke-width="1"><title>screenpart_MediathekCockpitBody.ymlinc:6
+<rect data-ref="0:1" data-src="screenpart_MediathekCockpitBody.ymlinc:8" x="0" y="0" width="1200" height="1035" fill="#121212" fill-opacity="0.45" stroke="#000000" stroke-opacity="0.6" stroke-width="1"><title>screenpart_MediathekCockpitBody.ymlinc:8
 &lt;widget&gt; backgroundColorSelected=&quot;md_inverse_surface&quot; foregroundColorSelected=&quot;md_inverse_on_surface&quot; itemCornerRadiusSelected=&quot;12&quot; position=&quot;0,0&quot; render=&quot;Listbox&quot; scrollbarMode=&quot;showNever&quot; size=&quot;1200,1035&quot; source=&quot;list&quot; backgroundColor=&quot;md_surface&quot; enableWrapAround=&quot;1&quot; foregroundColor=&quot;md_on_surface&quot; scrollbarSliderBorderColor=&quot;md_on_surface&quot; scrollbarSliderBorderWidth=&quot;1&quot; scrollbarSliderForegroundColor=&quot;md_on_surface_variant&quot; scrollbarWidth=&quot;5&quot; selectionFrame=&quot;none&quot; transparent=&quot;1&quot;</title></rect>
-<rect data-ref="0:4" data-src="screenpart_MediathekCockpitBody.ymlinc:76" x="0" y="1055" width="1200" height="25" fill="#121212" fill-opacity="0.45" stroke="#000000" stroke-opacity="0.6" stroke-width="1"><title>screenpart_MediathekCockpitBody.ymlinc:76
+<rect data-ref="0:4" data-src="screenpart_MediathekCockpitBody.ymlinc:78" x="0" y="1055" width="1200" height="25" fill="#121212" fill-opacity="0.45" stroke="#000000" stroke-opacity="0.6" stroke-width="1"><title>screenpart_MediathekCockpitBody.ymlinc:78
 &lt;widget&gt; addon=&quot;COCPager&quot; backgroundColor=&quot;md_surface&quot; conditional=&quot;pages&quot; connection=&quot;pages&quot; position=&quot;0,1055&quot; size=&quot;1200,25&quot; transparent=&quot;1&quot;</title></rect>
-<rect data-ref="0:2" data-src="screenpart_MediathekCockpitBody.ymlinc:62" x="1280" y="0" width="640" height="38" fill="#e15759" fill-opacity="0.45" stroke="#000000" stroke-opacity="0.6" stroke-width="1"><title>screenpart_MediathekCockpitBody.ymlinc:62
+<rect data-ref="0:2" data-src="screenpart_MediathekCockpitBody.ymlinc:64" x="1280" y="0" width="640" height="38" fill="#e15759" fill-opacity="0.45" stroke="#000000" stroke-opacity="0.6" stroke-width="1"><title>screenpart_MediathekCockpitBody.ymlinc:64
 &lt;widget&gt; font=&quot;Roboto;28&quot; name=&quot;duration&quot; position=&quot;1280,0&quot; size=&quot;640,38&quot; transparent=&quot;1&quot; zPosition=&quot;1&quot;</title></rect>
-<rect data-ref="0:3" data-src="screenpart_MediathekCockpitBody.ymlinc:69" x="1280" y="45" width="640" height="1035" fill="#76b7b2" fill-opacity="0.45" stroke="#000000" stroke-opacity="0.6" stroke-width="1"><title>screenpart_MediathekCockpitBody.ymlinc:69
+<rect data-ref="0:3" data-src="screenpart_MediathekCockpitBody.ymlinc:71" x="1280" y="45" width="640" height="1035" fill="#76b7b2" fill-opacity="0.45" stroke="#000000" stroke-opacity="0.6" stroke-width="1"><title>screenpart_MediathekCockpitBody.ymlinc:71
 &lt;widget&gt; font=&quot;Roboto;26&quot; name=&quot;description&quot; position=&quot;1280,45&quot; size=&quot;640,1035&quot; transparent=&quot;1&quot; zPosition=&quot;1&quot;</title></rect>
 <g pointer-events="none" font-family="monospace" font-size="12" fill="#000000" stroke="#ffffff" stroke-width="3" stroke-opacity="0.85" stroke-linejoin="round" paint-order="stroke">
-<text x="1275" y="14"><tspan font-weight="bold">#1</tspan> eLabel</text>
-<text x="4" y="14"><tspan font-weight="bold">#6</tspan> list (Listbox)</text>
-<text x="4" y="1069"><tspan font-weight="bold">#76</tspan> widget</text>
-<text x="1828" y="14"><tspan font-weight="bold">#62</tspan> duration</text>
-<text x="1284" y="59"><tspan font-weight="bold">#69</tspan> description</text>
+<text x="1275" y="14"><tspan font-weight="bold">#3</tspan> eLabel</text>
+<text x="4" y="14"><tspan font-weight="bold">#8</tspan> list (Listbox)</text>
+<text x="4" y="1069"><tspan font-weight="bold">#78</tspan> widget</text>
+<text x="1828" y="14"><tspan font-weight="bold">#64</tspan> duration</text>
+<text x="1284" y="59"><tspan font-weight="bold">#71</tspan> description</text>
 </g>
 </g>
 </svg>
