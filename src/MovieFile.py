@@ -33,7 +33,7 @@ class MovieFile:
                 url2, ext = os.path.splitext(os.path.dirname(url))
                 if ext == ".csmil":
                     ext = os.path.splitext(url2)[1]
-                download_ok = segments != []
+                download_ok = bool(segments)
             else:
                 logger.info("Downloading video URL: %s", url)
                 if not url:
