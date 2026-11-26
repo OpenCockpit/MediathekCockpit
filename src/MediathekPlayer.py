@@ -13,6 +13,13 @@ class MediathekPlayer(CockpitPlayer):
     """CockpitPlayer that, if "Stop movie behaviour" is set to "Ask user", asks what to do when the movie is stopped
     or has ended: quit, restart from the beginning, or continue."""
 
+    def __init__(self, *args, **kwargs):
+        CockpitPlayer.__init__(self, *args, **kwargs)
+        # Screen.__init__ sets skinName to the name of the class ("MediathekPlayer"), which no skin defines: without
+        # this the player is drawn with an empty built-in skin, without its infobar. Like the other players, after
+        # the base class.
+        self.skinName = "CockpitPlayer"
+
     def askToLeave(self):
         return config.plugins.mediathekcockpit.askstopmovie.value == "ask"
 

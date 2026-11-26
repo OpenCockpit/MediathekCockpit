@@ -8,10 +8,15 @@ from .Constants import LIST_CHANNEL, LIST_TIMESTAMP, LIST_EVENT_NAME, LIST_SHORT
 from .ChannelUtils import getServiceReference
 from .RecordingUtils import calcRecordingFilename
 from .DownloadJob import DownloadJob
-from .HLSParser import decode_hls_m3u8  # Add import for new HLS parser
+from .HLSParser import decode_hls_m3u8, TRACK_FILE, TRACK_SEGMENTS
 from .Debug import logger
 from .ConfigInit import VIDEO_RESOLUTIONS, VIDEO_RESOLUTIONS_DICT
 from .WebRequests import WebRequests
+
+
+def isHEVC(codecs):
+    """True if the CODECS of a variant name a HEVC video stream."""
+    return bool(codecs) and any(c.strip().lower().startswith(("hvc1", "hev1")) for c in codecs.split(","))
 
 
 class MovieFile:
@@ -23,17 +28,20 @@ class MovieFile:
         movie_dir = config.plugins.mediathekcockpit.movie_dir.value
         if os.path.exists(movie_dir):
             download_ok = False
-            segments = []
+            tracks = []
             service_ref = getServiceReference(curr[LIST_CHANNEL])
             url, _resolution = self.getVideoUrl(curr, int(config.plugins.mediathekcockpit.movie_resolution.value))
             logger.debug("Selected video URL: %s", url)
             if url.endswith(".m3u8"):
                 logger.info("Downloading HLS playlist: %s", url)
-                segments = self.getPlaylistSegments(url)
-                url2, ext = os.path.splitext(os.path.dirname(url))
-                if ext == ".csmil":
-                    ext = os.path.splitext(url2)[1]
-                download_ok = bool(segments)
+                tracks = self.getHLSTracks(url)
+                if len(tracks) > 1 or (tracks and tracks[0][0] == TRACK_FILE):
+                    ext = ".mp4"   # an MP4 file, or video and audio muxed into one
+                else:
+                    url2, ext = os.path.splitext(os.path.dirname(url))
+                    if ext == ".csmil":
+                        ext = os.path.splitext(url2)[1]
+                download_ok = bool(tracks)
             else:
                 logger.info("Downloading video URL: %s", url)
                 if not url:
@@ -48,7 +56,7 @@ class MovieFile:
                 job_manager.AddJob(
                     DownloadJob(
                         url,
-                        segments,
+                        tracks,
                         recording_path,
                         curr[LIST_EVENT_NAME],
                         curr[LIST_SHORT_DESCRIPTION],
@@ -82,53 +90,78 @@ class MovieFile:
         # Return empty values if no valid URL found
         return "", ""
 
-    def getPlaylistSegments(self, url):
-        """
-        Extract segments from HLS playlists, handling various formats.
-        """
+    def parsePlaylist(self, url):
+        """The parsed HLS playlist of url (see decode_hls_m3u8)."""
+        return decode_hls_m3u8(self.web_requests.getContent(url), url.rsplit('/', 1)[0] + '/')
+
+    def getHLSTracks(self, url):
+        """The tracks to download for an HLS stream: [video] or, if the audio is a track of its own (EXT-X-MEDIA TYPE=AUDIO,
+        like arte's CMAF streams), [video, audio], which are muxed into one file afterwards. A track is (TRACK_FILE, url) or
+        (TRACK_SEGMENTS, segments), see TRACK_FILE. [] if the stream can not be downloaded.
+
+        Of a master playlist the variant with the highest bandwidth is taken, H.264 before HEVC (a HEVC variant only if
+        there is no H.264 one), with the default rendition of its audio group."""
         logger.debug("Processing HLS playlist: %s", url)
         try:
-            # Download playlist content
-            playlist_content = self.web_requests.getContent(url)
-
-            # Get base URL for resolving relative URLs
-            base_url = url.rsplit('/', 1)[0] + '/'
-
-            # Parse playlist using HLS parser
-            result = decode_hls_m3u8(playlist_content, base_url)
-
-            # Case 1: Direct media playlist with segments
-            if result['segments']:
-                logger.debug("Found direct media playlist with %d segments", len(result['segments']))
-                return result['segments']
-
-            # Case 2: Master playlist with variants
+            result = self.parsePlaylist(url)
+            audio = None
             if result['variants']:
-                logger.debug("Found master playlist with %d variants", len(result['variants']))
-                # Select the highest bandwidth variant (last in sorted order)
-                variants = sorted(result['variants'], key=lambda v: v.bandwidth)
-                selected_variant = variants[-1]
-                variant_url = selected_variant.url
-
-                logger.debug("Loading variant playlist: %s", variant_url)
-                variant_content = self.web_requests.getContent(variant_url)
-
-                # Get base URL for variant playlist
-                variant_base_url = variant_url.rsplit('/', 1)[0] + '/'
-
-                # Parse variant playlist
-                variant_result = decode_hls_m3u8(variant_content, variant_base_url)
-
-                if variant_result['segments']:
-                    logger.debug("Found variant media playlist with %d segments", len(variant_result['segments']))
-                    return variant_result['segments']
-
-            logger.error("No segments found in playlist: %s", url)
-            return []
-
+                variant = max(result['variants'], key=lambda v: (not isHEVC(v.codecs), v.bandwidth))
+                logger.debug("Found master playlist with %d variants, selected: %s (%s, %s, audio %s)",
+                             len(result['variants']), variant.url, variant.codecs, variant.bandwidth, variant.audio)
+                audio = self.getAudioRendition(result['renditions'], variant.audio)
+                url = variant.url
+                result = self.parsePlaylist(url)
+            video = self.getTrack(result, url)
+            if video is None:
+                return []
+            tracks = [video]
+            if audio:
+                logger.debug("Separate audio track: %s (%s)", audio.url, audio.language)
+                audio_track = self.getTrack(self.parsePlaylist(audio.url), audio.url)
+                if audio_track is None:
+                    return []
+                tracks.append(audio_track)
+            return tracks
         except Exception as e:
             logger.error("Error processing playlist %s: %s", url, str(e))
             return []
+
+    @staticmethod
+    def getAudioRendition(renditions, group_id):
+        """The audio rendition of the audio group of a variant that has to be downloaded with it: its default one, else its
+        first one. None if the variant has no audio group, or its audio is in the variant itself (a rendition without URI)."""
+        audio = [r for r in renditions if r.type == "AUDIO" and r.group_id == group_id] if group_id else []
+        if not audio:
+            return None
+        rendition = next((r for r in audio if r.default), audio[0])
+        return rendition if rendition.url else None
+
+    @staticmethod
+    def getTrack(result, url):
+        """How the media playlist result (of url) is downloaded: (TRACK_FILE, file url) or (TRACK_SEGMENTS, segments), None
+        if it can not be."""
+        segments, init = result['segments'], result['init']
+        if not segments:
+            logger.error("No segments found in playlist: %s", url)
+            return None
+        parts = ([init] if init else []) + segments
+        if not any(s.byterange for s in parts):
+            logger.debug("Found media playlist with %d segments", len(segments))
+            return (TRACK_SEGMENTS, parts)
+        # byte ranges: supported if they are one file, from its start, one range after the other (a CMAF playlist)
+        if all(s.byterange for s in parts) and len({s.url for s in parts}) == 1:
+            position = 0
+            for s in parts:
+                length, offset = s.byterange
+                if offset != position:
+                    break
+                position += length
+            else:
+                logger.debug("Found media playlist of %d byte ranges of one file: %s (%d bytes)", len(segments), parts[0].url, position)
+                return (TRACK_FILE, parts[0].url)
+        logger.error("Byte ranges that are not one whole file are not supported: %s", url)
+        return None
 
     def checkMP4Structure(self, file_path):
         """Check if MP4 has progressive structure"""

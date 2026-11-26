@@ -7,7 +7,7 @@ import re
 import threading
 from urllib.parse import urljoin
 from twisted.internet import reactor
-from Components.Task import Task
+from Components.Task import Task, ReturncodePostcondition
 from .WebRequestsAsync import WebRequestsAsync
 from .WebRequests import WebRequests
 from .Debug import logger
@@ -52,6 +52,23 @@ def deleteFile(target_path):
         file_manager.delete("table2", os.path.basename(target_path))
 
 
+class PartPostcondition(ReturncodePostcondition):
+    """The postcondition of a task that makes a part of a recording (see MuxTask): it fails if the task fails, so the
+    tasks after it are not run. An aborted task does not fail: the user ended it (left the player, aborted the job) and
+    gets no error for it; endJob() keeps the tasks after it from being run."""
+
+    def check(self, task):
+        return getattr(task, "_aborted", False) or ReturncodePostcondition.check(self, task)
+
+
+def endJob(task):
+    """An aborted task of a job ends it: the tasks after it (the other part, the MuxTask) are dropped, so the job ends
+    with it instead of going on with them."""
+    job = task.job
+    if job is not None and task in job.tasks:
+        del job.tasks[job.tasks.index(task) + 1:]
+
+
 def downloadCover(url, path):
     if url:
         web_request = WebRequests()
@@ -74,11 +91,15 @@ class DownloadTaskFile(Task):
 
     TASK_NAME = "download task"
 
-    def __init__(self, job, url, target_path, event_name, short_description, description, rec_time, service_ref, length, web_site_url):
+    def __init__(self, job, url, target_path, event_name, short_description, description, rec_time, service_ref, length, web_site_url, final=True):
+        """final: target_path is the recording (it gets its cover and its meta data); else a part of it that a MuxTask
+        makes the recording of (the job's target_path), which is deleted with all its parts if this task fails."""
         logger.info("job: %s, url: %s, target_path: %s, description: %s",
                     job, url, target_path, description)
         self.url = url
         self.target_path = target_path
+        self.final = final
+        self.cleanup_path = target_path if final else job.target_path
         self.event_name = event_name
         self.short_description = short_description
         self.description = description
@@ -93,13 +114,17 @@ class DownloadTaskFile(Task):
         self._failed = False
         self.web_client = None
         Task.__init__(self, job, self.TASK_NAME)
+        if not self.final:
+            # a part that fails ends the job: the tasks after it (the other part, the MuxTask) are not run
+            self.postconditions.append(PartPostcondition())
 
     def abort(self, *_args):
         logger.info("...")
         self._aborted = True
+        endJob(self)
         if self.web_client:
             self.web_client.cancel()
-        deleteFile(self.target_path)
+        deleteFile(self.cleanup_path)
         Task.processFinished(self, 1)
 
     def run(self, callback):
@@ -107,8 +132,9 @@ class DownloadTaskFile(Task):
         self.callback = callback
         touchFile(self.target_path)
 
-        # Prepare cover and metadata in background to avoid blocking the main thread
-        threading.Thread(target=self._prepareCoverAndMeta, daemon=True).start()
+        if self.final:
+            # Prepare cover and metadata in background to avoid blocking the main thread
+            threading.Thread(target=self._prepareCoverAndMeta, daemon=True).start()
 
         self.web_client = self.download.downloadFileAsync(
             url=self.url,
@@ -145,8 +171,9 @@ class DownloadTaskFile(Task):
     def _on_finished(self):
         if self._aborted:
             return
-        loadDatabaseFile(self.target_path, self.event_name, self.short_description,
-                         self.description, self.rec_time, self.service_ref, self.length)
+        if self.final:
+            loadDatabaseFile(self.target_path, self.event_name, self.short_description,
+                             self.description, self.rec_time, self.service_ref, self.length)
         Task.processFinished(self, 0)
 
     def http_failed(self, error_message=""):
@@ -158,19 +185,22 @@ class DownloadTaskFile(Task):
             return
         self._failed = True
         logger.error("error_message: %s", error_message)
-        deleteFile(self.target_path)
+        deleteFile(self.cleanup_path)
         Task.processFinished(self, 1)
 
 
 class DownloadTaskHLS(Task):
     totalbytes = recvbytes = 0
 
-    def __init__(self, job, url, segments, target_path, event_name, short_description, description, rec_time, service_ref, length, web_site_url):
+    def __init__(self, job, url, segments, target_path, event_name, short_description, description, rec_time, service_ref, length, web_site_url, final=True):
+        """final: see DownloadTaskFile."""
         logger.info("job: %s, url: %s, target_path: %s, description: %s",
                     job, url, target_path, description)
         self.url = url
-        self.segments = segments
+        self.segments = list(segments)
         self.target_path = target_path
+        self.final = final
+        self.cleanup_path = target_path if final else job.target_path
         self.event_name = event_name
         self.short_description = short_description
         self.description = description
@@ -180,6 +210,9 @@ class DownloadTaskHLS(Task):
         self.length = length
         self.content = WebRequestsAsync()
         Task.__init__(self, job, "download task")
+        if not self.final:
+            # a part that fails ends the job: the tasks after it (the other part, the MuxTask) are not run
+            self.postconditions.append(PartPostcondition())
         self.totalbytes = len(segments)
         self.file_handle = None
         self._aborted = False
@@ -189,12 +222,13 @@ class DownloadTaskHLS(Task):
     def abort(self, *_args):
         logger.info("...")
         self._aborted = True
+        endJob(self)
         self.segments = []
         if self.web_client:
             self.web_client.cancel()
         if self.file_handle and not self.file_handle.closed:
             self.file_handle.close()
-        deleteFile(self.target_path)
+        deleteFile(self.cleanup_path)
         Task.processFinished(self, 1)
 
     def run(self, callback):
@@ -202,8 +236,9 @@ class DownloadTaskHLS(Task):
         self.callback = callback
         touchFile(self.target_path)
 
-        # Prepare cover and metadata in background to avoid blocking the main thread
-        threading.Thread(target=self._prepareCoverAndMeta, daemon=True).start()
+        if self.final:
+            # Prepare cover and metadata in background to avoid blocking the main thread
+            threading.Thread(target=self._prepareCoverAndMeta, daemon=True).start()
 
         self.file_handle = open(self.target_path, "wb")  # pylint: disable=consider-using-with
         self.downloadSegment(
@@ -242,7 +277,7 @@ class DownloadTaskHLS(Task):
             if self.file_handle and not self.file_handle.closed:
                 self.file_handle.close()
             self._failed = True
-            deleteFile(self.target_path)
+            deleteFile(self.cleanup_path)
             Task.processFinished(self, 1)
             return
         self.recvbytes += 1
@@ -254,8 +289,9 @@ class DownloadTaskHLS(Task):
             self.downloadSegment(str(urljoin(self.url, segment.url)))
         else:
             self.file_handle.close()
-            loadDatabaseFile(self.target_path, self.event_name, self.short_description,
-                             self.description, self.rec_time, self.service_ref, self.length)
+            if self.final:
+                loadDatabaseFile(self.target_path, self.event_name, self.short_description,
+                                 self.description, self.rec_time, self.service_ref, self.length)
             Task.processFinished(self, 0)
 
     def _http_failed_thread(self, error):
@@ -272,5 +308,70 @@ class DownloadTaskHLS(Task):
         error_message = str(error) if error else ""
         logger.error("error_message: %s", error_message)
         self._failed = True
-        deleteFile(self.target_path)
+        deleteFile(self.cleanup_path)
         Task.processFinished(self, 1)
+
+
+class MuxTask(Task):
+    """Muxes the parts of a recording (the video and the audio track of an HLS stream, downloaded by the tasks before it)
+    into the recording, with ffmpeg, without encoding anything. The parts are deleted afterwards; if it fails, the
+    recording and its parts are."""
+
+    def __init__(self, job, parts, target_path, event_name, short_description, description, rec_time, service_ref, length, web_site_url):
+        logger.info("job: %s, parts: %s, target_path: %s", job, parts, target_path)
+        Task.__init__(self, job, "mux task")
+        self.parts = parts
+        self.target_path = target_path
+        self.event_name = event_name
+        self.short_description = short_description
+        self.description = description
+        self.rec_time = rec_time
+        self.service_ref = service_ref
+        self.length = length
+        self.web_site_url = web_site_url
+        self.totalbytes = self.recvbytes = 0
+        self.weighting = 5   # the copy takes little time compared to the downloads
+        self._aborted = False
+        self.setTool("ffmpeg")
+        self.postconditions = [PartPostcondition()]   # instead of setTool's ReturncodePostcondition: no error when aborted
+        self.args += ["-y", "-nostdin", "-loglevel", "error"]
+        for part in parts:
+            self.args += ["-i", part]
+        # the video of the first part, the audio of the others
+        self.args += ["-map", "0:v:0"]
+        for i in range(1, len(parts)):
+            self.args += ["-map", "%d:a:0" % i]
+        self.args += ["-c", "copy", "-f", "mp4", target_path]
+
+    def abort(self):
+        """Ended by the user: ffmpeg is killed, which finishes the task (without an error, see PartPostcondition); the
+        recording and its parts are deleted."""
+        logger.info("...")
+        self._aborted = True
+        if self.container:
+            self.container.kill()
+        else:
+            self.finish()
+
+    def cleanup(self, failed):
+        logger.info("failed: %s, aborted: %s", failed, self._aborted)
+        for part in self.parts:
+            try:
+                os.remove(part)
+            except OSError:
+                pass
+        if failed or self._aborted:
+            deleteFile(self.target_path)
+            return
+        loadDatabaseFile(self.target_path, self.event_name, self.short_description,
+                         self.description, self.rec_time, self.service_ref, self.length)
+        threading.Thread(target=self._prepareCoverAndMeta, daemon=True).start()
+
+    def _prepareCoverAndMeta(self):
+        try:
+            downloadCover(self.web_site_url, os.path.splitext(self.target_path)[0] + ".jpg")
+            reactor.callFromThread(
+                loadDatabaseFile, self.target_path, self.event_name, self.short_description,
+                self.description, self.rec_time, self.service_ref, self.length)
+        except Exception as e:
+            logger.error("Error preparing cover/meta: %s", e)

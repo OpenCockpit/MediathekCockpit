@@ -118,9 +118,9 @@
 		<widget addon="ScreenHeader" backgroundColor="md_surface_container_high" connection="Image,Title,ScreenPath" pathFont="RobotoMedium;18" pathForegroundColor="md_primary" position="122,56" size="1556,60" titleFont="RobotoMedium;28" titleForegroundColor="md_primary" titleSingleFont="RobotoMedium;42" transparent="1" zPosition="20"/>
 		<widget actionButtonsPos="farRight" addon="ScreenButtonsBar" backgroundColor="md_surface_container_high" connection="key_red,key_green,key_yellow,key_blue,key_play,key_previous,key_left,key_info,key_help,key_pvr,key_menu,key_text,VKeyIcon,key_next,key_right,key_0" font="Roboto;26" layoutStyle="fluid" pixmaps="key_red:/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/buttons/key_red.png,key_green:/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/buttons/key_green.png,key_yellow:/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/buttons/key_yellow.png,key_blue:/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/buttons/key_blue.png,key_play:/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/buttons/key_play.png,key_info:/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/buttons/key_info.png,key_help:/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/buttons/key_help.png,key_pvr:/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/buttons/key_pvr.png,key_menu:/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/buttons/key_menu.png,key_text:/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/buttons/key_text.png,VKeyIcon:/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/buttons/key_text.png,key_previous:/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/buttons/key_prev.png,key_next:/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/buttons/key_next.png,key_left:/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/buttons/key_left.png,key_right:/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/buttons/key_right.png,key_0:/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/buttons/key_0.png" position="122,978" size="1676,36" spacingActionColorGroups="60" spacingColor="120" spacingPixmapText="10" zPosition="10"/>
 		<widget font="Roboto;30" name="epg_description" position="122,146" scrollbarMode="showOnDemand" size="1676,760" transparent="1"/>
-		<widget font="Roboto;30" halign="left" name="datetime" position="122,902" size="1676,38" transparent="1"/>
-		<widget font="Roboto;30" halign="center" name="duration" position="122,902" size="1676,38" transparent="1"/>
-		<widget font="Roboto;30" halign="right" name="channel" position="122,902" size="1676,38" transparent="1"/>
+		<widget font="Roboto;30" halign="left" name="datetime" position="122,900" size="1676,40" transparent="1"/>
+		<widget font="Roboto;30" halign="center" name="duration" position="122,900" size="1676,40" transparent="1"/>
+		<widget font="Roboto;30" halign="right" name="channel" position="122,900" size="1676,40" transparent="1"/>
 	</screen>
 	<screen backgroundColor="md_transparent" flags="wfNoBorder" name="CockpitPlayer" position="center,center" resolution="1920,1080" size="1920,1080">
 		<eLabel backgroundColor="md_surface_container_high" cornerRadius="16" position="38,862" size="1839,184" zPosition="-11"/>
@@ -128,7 +128,7 @@
 		<eLabel backgroundColor="md_surface_container_highest" position="380,915" size="1485,2" zPosition="-9"/>
 		<eLabel backgroundColor="md_surface_container_highest" position="1630,930" size="2,100" zPosition="-9"/>
 		<widget alphatest="blend" name="player_icon" position="160,915" size="90,90" zPosition="3"/>
-		<widget backgroundColor="md_surface" font="RobotoMedium;30" foregroundColor="md_on_surface" halign="center" position="1590,990" render="Label" size="320,35" source="global.CurrentTime" transparent="1" valign="top" zPosition="20">
+		<widget backgroundColor="md_surface" font="RobotoMedium;30" foregroundColor="md_on_surface" halign="center" position="1590,990" render="Label" size="320,40" source="global.CurrentTime" transparent="1" valign="top" zPosition="20">
 			<convert type="ClockToText">Format: %d %B</convert>
 		</widget>
 		<widget alphatest="blend" path="icons/audioicon" position="1605,860" render="AudioIcon" size="85,50" source="session.CurrentService" zPosition="10">
@@ -169,7 +169,7 @@
 		<widget alphatest="blend" pixmap="icons/rec2.png" position="1290,880" render="Pixmap" size="49,22" source="session.RecordState" zPosition="2">
 			<convert type="ConditionalShowHide">Blink,4000,1000</convert>
 		</widget>
-		<widget backgroundColor="md_surface" font="Roboto;40" noWrap="1" position="400,935" render="Label" size="1120,50" source="Service" transparent="1" valign="center">
+		<widget backgroundColor="md_surface" font="Roboto;40" noWrap="1" position="400,933" render="Label" size="1120,54" source="Service" transparent="1" valign="center">
 			<convert type="COCEventName">Name</convert>
 		</widget>
 		<widget backgroundColor="md_surface" font="RobotoMedium;36" foregroundColor="md_on_surface" halign="center" position="705,864" render="Label" size="180,51" source="Service" transparent="1" valign="center">
@@ -191,7 +191,7 @@
 		<widget alphatest="blend" cornerRadius="6" foregroundColor="md_outline" position="400,1005" render="Progress" size="1170,12" source="Service" transparent="1" zPosition="4">
 			<convert type="COCBeforeTSPosition">Position</convert>
 		</widget>
-		<widget backgroundColor="md_surface" font="RobotoMedium;60" foregroundColor="md_on_surface" halign="center" position="1590,925" render="Label" size="320,60" source="Service" transparent="1" valign="top" zPosition="20">
+		<widget backgroundColor="md_surface" font="RobotoMedium;60" foregroundColor="md_on_surface" halign="center" position="1590,925" render="Label" size="320,80" source="Service" transparent="1" valign="top" zPosition="20">
 			<convert type="COCServicePosition">EndTime,ShowNoSeconds</convert>
 		</widget>
 	</screen>

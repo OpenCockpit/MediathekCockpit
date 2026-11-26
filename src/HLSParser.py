@@ -6,26 +6,41 @@ import re
 from collections import namedtuple
 import urllib.parse
 
+# How a track of an HLS stream is downloaded (see MovieFile.getHLSTracks and DownloadJob):
+# TRACK_FILE: (TRACK_FILE, url) - its segments are the byte ranges of one file, one after the other from its start (a CMAF
+#   playlist): the file itself is downloaded, in one request
+# TRACK_SEGMENTS: (TRACK_SEGMENTS, [HLSSegment, ...]) - its segments are files of their own, downloaded one after the other;
+#   the first is the initialization section (EXT-X-MAP) if the playlist has one
+TRACK_FILE = "file"
+TRACK_SEGMENTS = "segments"
+
 # Define data structures using namedtuple for Python 2.7 compatibility
 HLSSegment = namedtuple('HLSSegment', [
     'url', 'duration', 'sequence', 'discontinuity', 'byterange', 'key'
 ])
 
+# audio: the GROUP-ID of the audio renditions of the variant (EXT-X-MEDIA TYPE=AUDIO), if its audio is not in its own segments
 HLSVariant = namedtuple('HLSVariant', [
-    'url', 'bandwidth', 'resolution', 'codecs', 'frame_rate'
+    'url', 'bandwidth', 'resolution', 'codecs', 'frame_rate', 'audio'
+])
+
+# An alternative rendition of a master playlist (EXT-X-MEDIA): an audio track that is not in the segments of the variants.
+# url is None if the rendition is in the variants themselves.
+HLSRendition = namedtuple('HLSRendition', [
+    'type', 'group_id', 'name', 'language', 'default', 'url'
 ])
 
 # Helper functions to create objects with default values
 
 
 def create_hls_segment(url, duration, sequence, discontinuity=False, byterange=None, key=None):
-    """Create HLSSegment with default values"""
+    """Create HLSSegment with default values. byterange: (length, offset) of the segment in the file of url, or None."""
     return HLSSegment(url, duration, sequence, discontinuity, byterange, key)
 
 
-def create_hls_variant(url, bandwidth, resolution=None, codecs=None, frame_rate=None):
+def create_hls_variant(url, bandwidth, resolution=None, codecs=None, frame_rate=None, audio=None):
     """Create HLSVariant with default values"""
-    return HLSVariant(url, bandwidth, resolution, codecs, frame_rate)
+    return HLSVariant(url, bandwidth, resolution, codecs, frame_rate, audio)
 
 
 class HLSParser:
@@ -54,9 +69,32 @@ class HLSParser:
 
         if is_master:
             variants = self._parse_master_playlist(lines)
-            return {'variants': variants, 'segments': []}
-        segments = self._parse_media_playlist(lines)
-        return {'variants': [], 'segments': segments}
+            return {'variants': variants, 'segments': [], 'renditions': self._parse_renditions(lines), 'init': None}
+        segments, init = self._parse_media_playlist(lines)
+        return {'variants': [], 'segments': segments, 'renditions': [], 'init': init}
+
+    def _parse_renditions(self, lines):
+        """The alternative renditions of a master playlist (EXT-X-MEDIA)"""
+        renditions = []
+        for line in lines:
+            if line.startswith('#EXT-X-MEDIA:'):
+                attrs = self._parse_attributes(line)
+                uri = attrs.get('URI')
+                renditions.append(HLSRendition(
+                    type=attrs.get('TYPE'),
+                    group_id=attrs.get('GROUP-ID'),
+                    name=attrs.get('NAME'),
+                    language=attrs.get('LANGUAGE'),
+                    default=attrs.get('DEFAULT') == 'YES',
+                    url=self._resolve_url(uri) if uri else None
+                ))
+        return renditions
+
+    @staticmethod
+    def _parse_byterange(value, previous_end):
+        """ "length[@offset]" -> (length, offset); without an offset the range follows the previous one of the same file."""
+        length, _, offset = value.strip().strip('"').partition('@')
+        return int(length), int(offset) if offset else previous_end
 
     def _parse_master_playlist(self, lines):
         """Parse master playlist and extract variant streams"""
@@ -94,7 +132,8 @@ class HLSParser:
                         bandwidth=bandwidth,
                         resolution=attrs.get('RESOLUTION'),
                         codecs=codecs if codecs else None,
-                        frame_rate=frame_rate
+                        frame_rate=frame_rate,
+                        audio=attrs.get('AUDIO')
                     )
                     variants.append(variant)
 
@@ -103,71 +142,66 @@ class HLSParser:
         return variants
 
     def _parse_media_playlist(self, lines):
-        """Parse media playlist and extract segments"""
+        """Parse media playlist and extract segments: (segments, init), init being the media initialization section
+        (EXT-X-MAP) as a segment of duration 0, or None.
+
+        The tags of a segment (EXTINF, EXT-X-BYTERANGE, EXT-X-DISCONTINUITY) come before its URI, in any order: they are
+        collected until the URI line, which makes the segment (RFC 8216, 4.3.2) - a CMAF playlist has EXT-X-BYTERANGE
+        between EXTINF and the URI."""
         segments = []
+        init = None
         sequence = 0
         current_key = None
-        i = 0
+        duration = None
+        byterange = None
+        discontinuity = False
+        range_end = {}   # url -> where its last byte range ended, for a range without an offset
 
-        while i < len(lines):
-            line = lines[i]
-
+        for line in lines:
             if line.startswith('#EXT-X-MEDIA-SEQUENCE'):
                 sequence = int(line.split(':')[1])
 
             elif line.startswith('#EXT-X-KEY'):
                 current_key = self._parse_attributes(line)
 
+            elif line.startswith('#EXT-X-MAP'):
+                attrs = self._parse_attributes(line)
+                if attrs.get('URI'):
+                    url = self._resolve_url(attrs['URI'])
+                    map_range = self._parse_byterange(attrs['BYTERANGE'], 0) if attrs.get('BYTERANGE') else None
+                    init = create_hls_segment(url=url, duration=0.0, sequence=-1, byterange=map_range)
+
             elif line.startswith('#EXTINF'):
-                # Parse segment duration
                 duration_match = re.search(r':([\d.]+)', line)
-                duration = float(duration_match.group(
-                    1)) if duration_match else 0.0
-
-                # Get segment URL from next line
-                i += 1
-                if i < len(lines) and not lines[i].startswith('#'):
-                    url = self._resolve_url(lines[i])
-
-                    # Copy current_key dictionary if it exists
-                    key_copy = None
-                    if current_key:
-                        key_copy = dict(current_key)
-
-                    segment = create_hls_segment(
-                        url=url,
-                        duration=duration,
-                        sequence=sequence,
-                        discontinuity=False,
-                        byterange=None,
-                        key=key_copy
-                    )
-                    segments.append(segment)
-                    sequence += 1
+                duration = float(duration_match.group(1)) if duration_match else 0.0
 
             elif line.startswith('#EXT-X-BYTERANGE'):
-                # Handle byte range for last segment
-                if segments:
-                    # Replace the last segment with updated byterange
-                    last_segment = segments[-1]
-                    updated_segment = create_hls_segment(
-                        url=last_segment.url,
-                        duration=last_segment.duration,
-                        sequence=last_segment.sequence,
-                        discontinuity=last_segment.discontinuity,
-                        byterange=line.split(':')[1],
-                        key=last_segment.key
-                    )
-                    segments[-1] = updated_segment
+                byterange = line.split(':', 1)[1]
 
             elif line.startswith('#EXT-X-DISCONTINUITY'):
-                # Mark next segment as discontinuity
-                # We'll handle this when we encounter the next EXTINF
-                pass
+                discontinuity = True
 
-            i += 1
+            elif not line.startswith('#') and duration is not None:
+                # the URI of the segment the tags above describe
+                url = self._resolve_url(line)
+                segment_range = None
+                if byterange is not None:
+                    segment_range = self._parse_byterange(byterange, range_end.get(url, 0))
+                    range_end[url] = segment_range[1] + segment_range[0]
+                segments.append(create_hls_segment(
+                    url=url,
+                    duration=duration,
+                    sequence=sequence,
+                    discontinuity=discontinuity,
+                    byterange=segment_range,
+                    key=dict(current_key) if current_key else None
+                ))
+                sequence += 1
+                duration = None
+                byterange = None
+                discontinuity = False
 
-        return segments
+        return segments, init
 
     def _parse_attributes(self, line):
         """Parse attribute string from M3U8 line"""
@@ -211,7 +245,9 @@ def decode_hls_m3u8(m3u8_content, base_url=""):
     Returns:
         Dictionary containing:
         - 'variants': List of HLSVariant objects (for master playlists)
+        - 'renditions': List of HLSRendition objects (for master playlists: separate audio tracks, ...)
         - 'segments': List of HLSSegment objects (for media playlists)
+        - 'init': the media initialization section (EXT-X-MAP) as an HLSSegment, or None (for media playlists)
 
     Example:
         with open('playlist.m3u8', 'r') as f:
