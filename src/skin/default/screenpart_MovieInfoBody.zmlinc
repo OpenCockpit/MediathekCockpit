@@ -1,0 +1,27 @@
+- param: {name: "width"}
+- param: {name: "height"}
+# the information of a movie: a row an item, its name on the left, its value on the right
+- list:
+    backgroundColorSelected: "$backgroundColorSelected"
+    foregroundColorSelected: "$foregroundColorSelected"
+    itemCornerRadiusSelected: "$radius_item"
+    position: "0,0"
+    size: "$width,eval($height//$list_item_height*$list_item_height)"
+    source: "list"
+    converter: "COCTemplatedMultiContentEx"
+    item:
+      height: "$list_item_height"
+      padding: "5,5"
+      fonts: ["$md_body_small"]
+      columns: [320, "*"]
+      spacing: "10"
+      body:
+        - row:
+            # name
+            - cell:
+                children:
+                  - text: {flags: RT_VALIGN_CENTER, value: 0}
+            # value
+            - cell:
+                children:
+                  - text: {flags: RT_VALIGN_CENTER, value: 1}

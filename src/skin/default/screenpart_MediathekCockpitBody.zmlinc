@@ -1,0 +1,76 @@
+- param: {name: "width"}
+- param: {name: "height"}
+- eLabel:
+    backgroundColor: "md_outline_variant"
+    position: "$width-640-10,0"
+    size: "1,$height"
+    zPosition: "-5"
+# the list of the programs: a row a program, with its picture over both lines on the left, the channel (date and time
+# under it) and the title (the description under it)
+- list:
+    backgroundColorSelected: "$backgroundColorSelected"
+    foregroundColorSelected: "$foregroundColorSelected"
+    itemCornerRadiusSelected: "$radius_item"
+    position: "0,0"
+    scrollbarMode: "showNever"
+    size: "1200,eval(($height-35)/62*62)"
+    source: "list"
+    converter: "COCTemplatedMultiContentEx"
+    item:
+      height: 62
+      padding: "10,10"
+      fonts: ["$md_body_medium", "$md_label_medium", "$md_body_small"]
+      columns: [75, 125, 80, "*"]
+      rows: [32, 30]
+      spacing: "0,0"
+      body:
+        - row:
+            # picture
+            - cell:
+                rowspan: 2
+                children:
+                  - icon: {size: "60,60", flags: BT_SCALE|BT_KEEP_ASPECT_RATIO|BT_HALIGN_CENTER|BT_VALIGN_CENTER, value: 8}
+            # channel
+            - cell:
+                colspan: 2
+                children:
+                  - text: {size: "170,e", font: "$md_body_medium", flags: RT_HALIGN_LEFT|RT_VALIGN_CENTER, value: 0}
+            # title
+            - cell:
+                children:
+                  - text: {font: "$md_body_medium", flags: RT_HALIGN_LEFT|RT_VALIGN_CENTER, value: 15}
+        - row:
+            # date
+            - cell:
+                children:
+                  - text: {size: "110,e", font: "$md_label_medium", flags: RT_HALIGN_LEFT|RT_VALIGN_CENTER, value: 5}
+            # time
+            - cell:
+                children:
+                  - text: {size: "70,e", font: "$md_label_medium", flags: RT_HALIGN_LEFT|RT_VALIGN_CENTER, value: 4}
+            # description
+            - cell:
+                children:
+                  - text: {font: "$md_body_small", flags: RT_HALIGN_LEFT|RT_VALIGN_CENTER, value: 16, color: "md_on_surface_variant", color_sel: "md_inverse_on_surface"}
+- widget:
+    font: "$md_body_medium"
+    name: "duration"
+    position: "$width-640,0"
+    size: "640,38"
+    transparent: "1"
+    zPosition: "1"
+- widget:
+    font: "$md_body_small"
+    name: "description"
+    position: "$width-640,45"
+    size: "640,$height-45"
+    transparent: "1"
+    zPosition: "1"
+- widget:
+    addon: "COCPager"
+    backgroundColor: "md_surface"
+    conditional: "pages"
+    connection: "pages"
+    position: "0,$height-25"
+    size: "1200,25"
+    transparent: "1"

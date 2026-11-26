@@ -1,28 +1,28 @@
 - param: {name: "width"}
 - param: {name: "height"}
+# the information of a movie: a row an item, its name on the left, its value on the right
 - widget:
+    render: "Listbox"
     backgroundColorSelected: "$backgroundColorSelected"
     foregroundColorSelected: "$foregroundColorSelected"
     itemCornerRadiusSelected: "$radius_item"
     position: "0,0"
-    render: "Listbox"
-    size: "$width,eval($height/65*65)"
+    size: "$width,eval($height//$list_item_height*$list_item_height)"
     source: "list"
     children:
       - convert:
           type: "COCTemplatedMultiContentEx"
           cell:
-            itemHeight: 65
-            fonts:
-              - "$md_body_small"
+            itemHeight: "$list_item_height"
+            fonts: ["$md_body_small"]
             fields:
               - text:
-                  position: "5,0"
-                  size: "320,62"
-                  flags: RT_VALIGN_CENTER
+                  flags: "RT_VALIGN_CENTER"
                   value: 0
+                  position: "5,0"
+                  size: "320,$list_item_height"
               - text:
-                  position: "335,0"
-                  size: "1346,62"
-                  flags: RT_VALIGN_CENTER|RT_WRAP
+                  flags: "RT_VALIGN_CENTER"
                   value: 1
+                  position: "335,0"
+                  size: "($width-5-5)-320-1*10,$list_item_height"

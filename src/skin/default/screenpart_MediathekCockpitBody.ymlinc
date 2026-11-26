@@ -5,62 +5,61 @@
     position: "$width-640-10,0"
     size: "1,$height"
     zPosition: "-5"
+# the list of the programs: a row a program, with its picture over both lines on the left, the channel (date and time
+# under it) and the title (the description under it)
 - widget:
+    render: "Listbox"
     backgroundColorSelected: "$backgroundColorSelected"
     foregroundColorSelected: "$foregroundColorSelected"
     itemCornerRadiusSelected: "$radius_item"
     position: "0,0"
-    render: "Listbox"
     scrollbarMode: "showNever"
-    size: "1200,eval(($height-35)/69*69)"
+    size: "1200,eval(($height-35)/62*62)"
     source: "list"
     children:
       - convert:
           type: "COCTemplatedMultiContentEx"
           cell:
-            itemHeight: 69
-            fonts:
-              - "$md_body_medium"
-              - "$md_label_medium"
-              - "$md_body_small"
+            itemHeight: 62
+            fonts: ["$md_body_medium", "$md_label_medium", "$md_body_small"]
             fields:
-              - text:
-                  position: "75,0"
-                  size: "170,32"
-                  font: "$md_body_medium"
-                  flags: RT_HALIGN_LEFT|RT_VALIGN_CENTER
-                  value: 0
               - icon:
-                  position: "4,0"
-                  size: "60,60"
-                  flags: BT_SCALE|BT_KEEP_ASPECT_RATIO|BT_HALIGN_CENTER|BT_VALIGN_CENTER
+                  flags: "BT_SCALE|BT_KEEP_ASPECT_RATIO|BT_HALIGN_CENTER|BT_VALIGN_CENTER"
                   value: 8
+                  position: "10,0"
+                  size: "60,60"
               - text:
-                  position: "75,34"
-                  size: "110,28"
-                  font: "$md_label_medium"
-                  flags: RT_HALIGN_LEFT|RT_VALIGN_CENTER
-                  value: 5
-              - text:
-                  position: "200,34"
-                  size: "70,28"
-                  font: "$md_label_medium"
-                  flags: RT_HALIGN_LEFT|RT_VALIGN_CENTER
-                  value: 4
-              - text:
-                  position: "300,0"
-                  size: "890,32"
                   font: "$md_body_medium"
-                  flags: RT_HALIGN_LEFT|RT_VALIGN_CENTER
-                  value: 15
+                  flags: "RT_HALIGN_LEFT|RT_VALIGN_CENTER"
+                  value: 0
+                  position: "85,0"
+                  size: "170,32"
               - text:
-                  position: "300,34"
-                  size: "890,28"
+                  font: "$md_body_medium"
+                  flags: "RT_HALIGN_LEFT|RT_VALIGN_CENTER"
+                  value: 15
+                  position: "290,0"
+                  size: "900,32"
+              - text:
+                  font: "$md_label_medium"
+                  flags: "RT_HALIGN_LEFT|RT_VALIGN_CENTER"
+                  value: 5
+                  position: "85,32"
+                  size: "110,30"
+              - text:
+                  font: "$md_label_medium"
+                  flags: "RT_HALIGN_LEFT|RT_VALIGN_CENTER"
+                  value: 4
+                  position: "210,32"
+                  size: "70,30"
+              - text:
                   font: "$md_body_small"
-                  flags: RT_HALIGN_LEFT|RT_VALIGN_CENTER
+                  flags: "RT_HALIGN_LEFT|RT_VALIGN_CENTER"
                   value: 16
                   color: "md_on_surface_variant"
                   color_sel: "md_inverse_on_surface"
+                  position: "290,32"
+                  size: "900,30"
 - widget:
     font: "$md_body_medium"
     name: "duration"
